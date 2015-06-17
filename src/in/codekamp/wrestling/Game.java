@@ -1,32 +1,127 @@
-package in.codekamp.wrestling;
+import java.util.*;
+
 
 public class Game {
 
 	public static void main(String[] args) {
-
-		Wrestler wrestler1 = new Wrestler("Undertaker", 2, 10.5, 100.0, 40, 5);
-
-		System.out.println(wrestler1.toString());
-		wrestler1.rank = 5;
-
-		System.out.println(wrestler1.toString());
-
-		Wrestler wrestler2 = new Wrestler("Khali", 5, 12.5, 150.0, 10, 4);
-
-		System.out.println(wrestler2.toString());
 		
-		try {
-			int wins = wrestler2.setMatchesWon(5);
-			System.out.println("Matches won = " + wins);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 		
-		Wrestler[] wrestlers = {wrestler1, wrestler2};
-
+		List<Wrestler> wrestlers = Wrestler.defaultDeck();
+		
+		Collections.shuffle(wrestlers);
+		
+		List<Wrestler> playerOneCards = new ArrayList<Wrestler>();
+		List<Wrestler> playerTwoCards = new ArrayList<Wrestler>();
+		
+		int index = 0;
+		
+		for(Wrestler someWrestler : wrestlers){
+			if(index%2 ==0){
+				playerOneCards.add(someWrestler);
+			}else{
+				playerTwoCards.add(someWrestler);
+			}
+			index++;
+			
+		 	
+	}     int chance=0;
+	      int choice=0;
+	      boolean result=true;
+	      Scanner userInput=new Scanner(System.in);
+	      int lastIndex=0;
+		do{
+		    
+		    
+		   
+		   if(chance%2==0){
+		    
+		     lastIndex = playerOneCards.size()-1;
+		    
+		    Wrestler topCardOfPlayerOne = playerOneCards.get(lastIndex);
+		    
+		    System.out.println(playerOneCards.get(lastIndex).toString());
+		
+		     
+		     
+		     
+		     
+		     userInput.hasNextInt();
+		     
+		     choice=userInput.nextInt();
+		     
+		     System.out.println(playerTwoCards.get(lastIndex).toString());
+		     
+		     
+		
+		     result = Wrestler.Play(choice,playerOneCards.get(lastIndex),playerTwoCards.get(lastIndex));
+		     chance++;
+		     }
+		   else 
+		   {  lastIndex = playerTwoCards.size()-1;
+		    
+		    Wrestler topCardOfPlayerTwo = playerTwoCards.get(lastIndex);
+		    
+		    System.out.println(playerTwoCards.get(lastIndex).toString());
+		
+		     
+		     
+		    
+		     
+		     userInput.hasNextInt();
+		     
+		     choice=userInput.nextInt();
+		     
+		     System.out.println(playerOneCards.get(lastIndex).toString());
+		     
+		     
+		
+		     result = Wrestler.Play(choice,playerOneCards.get(lastIndex),playerTwoCards.get(lastIndex));
+		     chance++;
+			   
+		      }
+		
+		if(result==true){
+			System.out.println("PlayerOneWon\n");
+			
+			Wrestler removedCard = playerTwoCards.remove(lastIndex);
+			
+			playerOneCards.add(removedCard);
+			Collections.shuffle(playerOneCards);
+			
+		    }
+		else
+		   {
+			System.out.println("PlayerTwoWon\n");
+		
+		   Wrestler removedCard = playerOneCards.remove(lastIndex);
+		
+		   playerTwoCards.add(removedCard);
+		   Collections.shuffle(playerTwoCards);
+		   }
+		   
+		  
+		   
+		   System.out.println("Do You Wish To Continue\n1-YES\n2=NO");
+		   
+		    int a=1;
+		     userInput.hasNextInt(); 
+		     
+		     a=userInput.nextInt();
+		     
+		 if(a==1)
+			 continue;
+		 else if(a==2)
+		 {
+			 System.out.println("THANKS FOR PLAYING\n");
+			 
+			 break;
+		 }
+			   
+			 
+			 
+		
+   }while(true);
+	
 	}
 	
-	
-	tyagisakshi032@gmail.com
-
 }
